@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1081.0" prefWidth="195.0" styleClass="menuBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuController">
+    <children>
+        <ToggleButton mnemonicParsing="false" onAction="#openOrders" prefHeight="80.0" prefWidth="190.0" stylesheets="@../css/ToggleButton.css" text="%order.title">
+            <toggleGroup>
+                <ToggleGroup fx:id="MenuGroup" />
+            </toggleGroup>
+            <VBox.margin>
+                <Insets bottom="5.0" top="20.0" />
+            </VBox.margin>
+        </ToggleButton>
+        <ToggleButton mnemonicParsing="false" onAction="#openBuiltItems" prefHeight="80.0" prefWidth="190.0" stylesheets="@../css/ToggleButton.css" text="%built.items" toggleGroup="$MenuGroup">
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin>
+        </ToggleButton>
+        <ToggleButton mnemonicParsing="false" onAction="#AddCategory" prefHeight="80.0" prefWidth="190.0" stylesheets="@../css/ToggleButton.css" text="%built.Addcategory" toggleGroup="$MenuGroup">
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin>
+        </ToggleButton>
+        <ToggleButton mnemonicParsing="false" onAction="#AddClient" prefHeight="80.0" prefWidth="190.0" stylesheets="@../css/ToggleButton.css" text="%built.Addclient" toggleGroup="$MenuGroup">
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin>
+        </ToggleButton>
+        <ToggleButton mnemonicParsing="false" onAction="#informClient" prefHeight="80.0" prefWidth="190.0" stylesheets="@../css/ToggleButton.css" text="%built.clients" toggleGroup="$MenuGroup">
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin>
+        </ToggleButton>
+      <ToggleButton mnemonicParsing="false" onAction="#Statistics" prefHeight="80.0" prefWidth="190.0" stylesheets="@../css/ToggleButton.css" text="%built.statistics" toggleGroup="$MenuGroup" />
+    </children>
+   <stylesheets>
+      <URL value="@../css/ToggleButton.css" />
+      <URL value="@../css/Vbox.css" />
+   </stylesheets>
+
+</VBox>

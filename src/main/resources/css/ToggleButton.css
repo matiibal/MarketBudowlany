@@ -1,0 +1,34 @@
+/*.toggle-button {*/
+/*    -fx-base: #169BD5;*/
+/*}*/
+/*.toggle-button:selected {*/
+/*    -fx-base: green*/
+/*}*/
+/*.toggle-button:selected:focused {*/
+/*    -fx-base: green*/
+
+/*}*/
+
+
+.toggle-button {
+    -fx-box-shadow: inset -2px 0px 0px -50px #caefab;
+    -fx-background: linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
+    -fx-background-color:  #169BD5;
+    -fx-border-radius: 42px;
+    -fx-display: inline-block;
+    -fx-cursor: pointer;
+    -fx-color: #306108;
+    -fx-font-family: Wingdings;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 7px 24px;
+    -fx-text-decoration: none;
+}
+.toggle-button:selected {
+    -fx-background: linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
+    -fx-background-color: #5cb811;
+}
+.toggle-button:selected:focused {
+    -fx-position: relative;
+    -fx-top: 1px;
+}

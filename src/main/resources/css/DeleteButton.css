@@ -1,0 +1,19 @@
+.button {
+    -fx-box-shadow:inset 0px 1px 0px 0px #cf866c;
+    -fx-background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+    -fx-background-color:#d0451b;
+    -fx-border-radius:3px;
+    -fx-display:inline-block;
+    -fx-cursor:pointer;
+    -fx-color:#ffffff;
+    -fx-font-family:Arial;
+    -fx-font-size:15px;
+    -fx-font-weight:bold;
+    -fx-text-decoration:none;
+
+}
+.button:hover {
+
+    -fx-background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+    -fx-background-color:#bc3315;
+}

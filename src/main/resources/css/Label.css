@@ -1,0 +1,8 @@
+.label {
+    -fx-color: #B4886B;
+    -fx-font-weight: bold;
+    -fx-display: block;
+    -fx-width: 150px;
+    -fx-float: left;
+    -fx-size: 15px;
+}

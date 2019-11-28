@@ -1,0 +1,11 @@
+.hbox {
+    -fx-background-color: #1839d5;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+.label
+{
+    -fx-color: white;
+    -fx-padding: 8px;
+}
+

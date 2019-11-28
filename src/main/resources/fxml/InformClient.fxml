@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1900.0" prefWidth="1608.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientInformationController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="1579.0">
+         <children>
+            <TextField fx:id="filterField" prefHeight="45.0" prefWidth="344.0" promptText="%client.search.field" stylesheets="@../css/TextField.css">
+               <HBox.margin>
+                  <Insets left="100.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+      <TableView fx:id="clientTableView" editable="true" prefHeight="733.0" prefWidth="1033.0" stylesheets="@../css/TableView.css">
+        <columns>
+            <TableColumn fx:id="nameColumn" onEditCommit="#nameEditCommit" prefWidth="120.0" text="%client.name" />
+          <TableColumn fx:id="secondNameColumn" onEditCommit="#secondNameEditCommit" prefWidth="120.0" text="%client.second.name" />
+          <TableColumn fx:id="nipColumn" onEditCommit="#nipEditCommit" prefWidth="120.0" text="%client.nip" />
+            <TableColumn fx:id="streetColumn" onEditCommit="#streetEditCommit" prefWidth="150.0" text="%client.street" />
+            <TableColumn fx:id="houseNrColumn" onEditCommit="#houseNrEditCommit" prefWidth="90.0" text="%client.house.nr" />
+            <TableColumn fx:id="postColumn" onEditCommit="#postEditCommit" prefWidth="131.0" text="%client.post" />
+            <TableColumn fx:id="cityColumn" onEditCommit="#cityEditCommit" prefWidth="139.0" text="%client.city" />
+            <TableColumn fx:id="phoneColumn" onEditCommit="#phoneEditCommit" prefWidth="132.0" text="%client.phone" />
+        </columns>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets left="100.0" right="505.0" />
+         </VBox.margin>
+      </TableView>
+   </children>
+</VBox>

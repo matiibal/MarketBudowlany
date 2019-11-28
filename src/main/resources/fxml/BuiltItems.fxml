@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1900.0" prefWidth="1744.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BuiltItemController">
+   <children>
+      <VBox prefHeight="1500.0" prefWidth="551.0">
+         <children>
+            <GridPane prefHeight="291.0" prefWidth="434.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="190.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="241.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="%items.name">
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="%items.category" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="%items.price" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="%items.stock" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="itemNameTextField" prefHeight="56.0" prefWidth="267.0" stylesheets="@../css/TextField.css" GridPane.columnIndex="1" />
+                  <TextField fx:id="priceTextField" prefHeight="56.0" prefWidth="262.0" stylesheets="@../css/TextField.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="stockTextField" prefHeight="56.0" prefWidth="262.0" stylesheets="@../css/TextField.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <ComboBox fx:id="categoryComboBox" prefHeight="56.0" prefWidth="268.0" stylesheets="@../css/ComboBox.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="100.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </GridPane>
+            <Button fx:id="addItems" mnemonicParsing="false" onAction="#addItems" prefHeight="55.0" prefWidth="159.0" stylesheets="@../css/ButtonClient.css" text="%client.button.commit">
+               <VBox.margin>
+                  <Insets left="370.0" right="20.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox prefHeight="1500.0" prefWidth="974.0">
+         <children>
+            <TextField fx:id="searchItemsField" onAction="#searchItems" promptText="%items.search" stylesheets="@../css/TextField.css">
+               <VBox.margin>
+                  <Insets bottom="30.0" right="150.0" top="25.0" />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </TextField>
+            <TableView fx:id="itemsTableView" editable="true" prefHeight="594.0" prefWidth="974.0" stylesheets="@../css/TableView.css">
+              <columns>
+                <TableColumn fx:id="nameItemsColumn" prefWidth="252.0" text="%items.name" />
+                <TableColumn fx:id="categoryItemsColumn" prefWidth="118.0" text="%items.category" />
+                  <TableColumn fx:id="priceItemsColumn" minWidth="0.0" prefWidth="175.0" text="%items.price" />
+                  <TableColumn fx:id="stockItemsColumn" prefWidth="265.0" text="%items.stockTV" />
+                  <TableColumn fx:id="deleteColumn" prefWidth="82.0" text="%items.delete" />
+                  <TableColumn fx:id="editColumn" prefWidth="81.0" text="%items.edit" />
+              </columns>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TableView>
+         </children>
+         <HBox.margin>
+            <Insets left="25.0" />
+         </HBox.margin>
+      </VBox>
+   </children>
+</HBox>
