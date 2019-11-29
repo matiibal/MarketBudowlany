@@ -166,7 +166,7 @@ public class OrderController {
                                 int stockAfterAddItem = Integer.parseInt(item.getStock()) - Integer.parseInt(quantity);
 
                                 try {
-                                    if (stockAfterAddItem > 0) {
+                                    if (stockAfterAddItem >= 0) {
                                         item.setStock(String.valueOf(stockAfterAddItem));
 
 
@@ -323,15 +323,11 @@ public class OrderController {
     public void comitOrder() {
         //builtItemService.updateStock();
 
+        //trigger
         dataOrderMap.forEach((e,f)->
         {
             builtItemService.update(e);
         });
-
-
-
-
-
 
         order.setOrderDate(LocalDate.parse(order.getOrderDate().now().toString()));
         OrdersService service = new OrdersService();
