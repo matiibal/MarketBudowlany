@@ -37,11 +37,6 @@ public class BuiltItemController {
     @FXML
     private ComboBox<CategoryFx> categoryComboBox;
 
-
-    @FXML
-    private Button addItems;
-
-
     @FXML
     private TextField searchItemsField;
 
@@ -111,7 +106,17 @@ public class BuiltItemController {
                     return;
                 }
                 setGraphic(button);
-                button.setOnAction(event -> builtItemService.delete(item));
+                button.setOnAction(event ->
+                {
+                    try {
+                        builtItemService.delete(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Dialogs.errorData("items.errorDeleteTitle",
+                                "items.errorDeleteHeader");
+                    }
+                });
             }
         });
 
@@ -159,23 +164,6 @@ public class BuiltItemController {
 
         //wyswietlanie kategorii
         this.categoryItemsColumn.setCellValueFactory(cellData -> cellData.getValue().categoryFxProperty().get().nameProperty());
-        //podpinamy aby móc edytować
-        this.priceItemsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        this.stockItemsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        this.nameItemsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        this.categoryItemsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-
-        //zapisz do edit nową wartość
-        this.itemsTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-        {
-            this.builtItemService.setBuiltItemFxObjectPropertyEdit(newValue);
-        });
-//        //włączanie wyłaczanie przycisku
-//        addItems.disableProperty().bind(itemNameTextField.textProperty().isEmpty().or(priceTextField.textProperty().isEmpty())
-//                .or(stockTextField.textProperty().isEmpty()));
-//        // addItems.disableProperty().bind(categoryComboBox.centerShapeProperty());
-
         searchItems();
 
     }

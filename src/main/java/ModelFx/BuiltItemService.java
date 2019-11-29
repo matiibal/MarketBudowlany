@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import utils.converters.ConverterBuiltItems;
 import utils.converters.ConverterCategory;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 public class BuiltItemService {
@@ -75,6 +76,21 @@ public class BuiltItemService {
         BuiltItems entity=ConverterBuiltItems.convertToBuiltItems(this.getBuiltItemFxObjectPropertyEdit());
         builtItemDao.openCurrentSessionwithTransaction();
         builtItemDao.update(entity);
+        builtItemDao.closeCurrentSessionwithTransaction();
+        this.init();
+    }
+
+    public void update(BuiltItems entity) {
+        builtItemDao.openCurrentSessionwithTransaction();
+        builtItemDao.update(entity);
+        builtItemDao.closeCurrentSessionwithTransaction();
+        this.init();
+    }
+
+
+    public void updateStock(int entityId, int stock) {
+        builtItemDao.openCurrentSessionwithTransaction();
+        builtItemDao.updateStock(entityId,stock);
         builtItemDao.closeCurrentSessionwithTransaction();
         this.init();
     }

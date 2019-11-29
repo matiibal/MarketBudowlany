@@ -2,8 +2,10 @@ package database.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.math3.util.Precision;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.*;
@@ -41,12 +43,12 @@ public class Orders {
     public Double total(double price, int quantity)
     {
         totalPrice =totalPrice + (price*quantity);
-        return totalPrice;
+        return Precision.round(totalPrice,2);
     }
 
 
     public Double totalAfterRemoving(Double price, int quantity) {
     totalPrice =totalPrice-(price*quantity);
-    return totalPrice;
+    return Precision.round(totalPrice,2);
     }
 }

@@ -4,6 +4,7 @@ import database.dbutils.DbManager;
 import database.models.BuiltItems;
 import database.models.Category;
 
+import javax.persistence.Query;
 import java.util.List;
 
 @SuppressWarnings("JpaQlInspection")
@@ -23,6 +24,17 @@ public class BuiltItemDao extends DbManager implements CommonDaoInterface<BuiltI
     @Override
     public void update(BuiltItems entity) {
         getCurrentSession().update(entity);
+    }
+
+
+
+    public void updateStock(int entityId, int stock)
+    {
+        String HQL = "update BuiltItems set stock=:stock where id=:id";
+        Query query = getCurrentSession().createQuery(HQL);
+        query.setParameter("stock",stock);
+        query.setParameter("id",entityId );
+        query.executeUpdate();
     }
 
     @Override

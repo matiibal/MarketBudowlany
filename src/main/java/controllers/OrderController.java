@@ -1,6 +1,7 @@
 package controllers;
 
 import ModelFx.*;
+import database.dao.BuiltItemDao;
 import database.models.BuiltItems;
 import database.models.Orders;
 import javafx.beans.property.SimpleObjectProperty;
@@ -11,10 +12,14 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import utils.Dialogs;
 import utils.converters.ConverterBuiltItems;
 import utils.converters.ConverterClient;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +52,12 @@ public class OrderController {
     public TableColumn<BuiltItemFx, String> orderNameItem;
     public TableColumn<BuiltItemFx, String> orderItemQuantity;
     public TableColumn<BuiltItemFx, String> priceByOneItem;
-    public TableColumn<BuiltItemFx, String> allPriceColumn;
-    public TableColumn<BuiltItemFx, BuiltItemFx> deleteColumn;
+    @FXML
+    private TableColumn<BuiltItemFx, String> stockColumn;
+    @FXML
+    private TableColumn<BuiltItemFx, String> allPriceColumn;
+    @FXML
+    private TableColumn<BuiltItemFx, BuiltItemFx> deleteColumn;
     private Map<BuiltItems, Integer> dataOrder = new ConcurrentHashMap<>();
     @FXML
     private TableView<ClientFx> clientTableView;
@@ -80,10 +89,6 @@ public class OrderController {
         deleteItemsFromOrder(controller);
         searchClient();
         searchItem();
-
-
-
-
 
 
     }
@@ -126,6 +131,8 @@ public class OrderController {
                             order.setItem(dataOrder);
 
                             orderRow.remove(item.getName());
+                            int stockAfterAddItem = Integer.parseInt(item.getStock()) + quantity;
+                            item.setStock(String.valueOf(stockAfterAddItem));
 
                         }
                 );
@@ -153,37 +160,54 @@ public class OrderController {
                         e ->
                         {
 
+
                             if (orderRow.contains(item.getName())) {
                                 Dialogs.errorData("order.error", "order.header");
                             } else {
-                                orderRow.add(item.getName());
-                                orderList.add(item);
-
-                                ordersService.setOrderItemList(orderList);
-                                orderTableView.setItems(ordersService.getOrderItemList());
-                                orderNameItem.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-                                priceByOneItem.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
-
 
                                 String quantity = quantityTextField.getText();
-                                item.setQuantity(quantity);
-                                double priceItem = Double.parseDouble(item.getPrice());
-                                double columnPrice = Double.parseDouble(quantity) * priceItem;
-                                item.setTotalPrice(String.valueOf(columnPrice));
 
-                                orderItemQuantity.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
-                                allPriceColumn.setCellValueFactory(cellData -> cellData.getValue().totalPriceProperty());
+                                int stockAfterAddItem = Integer.parseInt(item.getStock()) - Integer.parseInt(quantity);
 
-                                //mapowanie do bazy danych
-                                dataOrder.putIfAbsent(ConverterBuiltItems.convertToBuiltItems(item), Integer.valueOf(quantity));
-                                order.setItem(dataOrder);
+                                try {
+                                    if (stockAfterAddItem > 0) {
+                                        item.setStock(String.valueOf(stockAfterAddItem));
 
 
-                                Double price = Double.valueOf(item.priceProperty().getValue());
-                                priceAllLabel.setText(String.valueOf(Math.round(order.total(price, Integer.parseInt(quantity)) * 100.00) / 100.00).concat(" PLN")); //zliczanie);
-                                quantityTextField.clear();
 
+                                        orderRow.add(item.getName());
+                                        orderList.add(item);
+                                        ordersService.setOrderItemList(orderList);
+                                        orderTableView.setItems(ordersService.getOrderItemList());
+                                        orderNameItem.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+                                        priceByOneItem.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
+                                        item.setQuantity(quantity);
+                                        double priceItem = Double.parseDouble(item.getPrice());
+                                        double columnPrice = Double.parseDouble(quantity) * priceItem;
+                                        item.setTotalPrice(String.valueOf(columnPrice));
 
+                                        orderItemQuantity.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
+                                        allPriceColumn.setCellValueFactory(cellData -> cellData.getValue().totalPriceProperty());
+
+                                        //mapowanie do bazy danych
+                                        dataOrder.putIfAbsent(ConverterBuiltItems.convertToBuiltItems(item), Integer.valueOf(quantity));
+                                        order.setItem(dataOrder);
+
+                                        Double price = Double.valueOf(item.priceProperty().getValue());
+                                        priceAllLabel.setText(String.valueOf(Math.round(order.total(price, Integer.parseInt(quantity)) * 100.00) / 100.00).concat(" PLN")); //zliczanie);
+                                        quantityTextField.clear();
+
+                                        nameItemLabel.setText("Nie wybrano");
+                                        priceItemLabel.setText("Nie wybrano");
+
+                                        itemsTableView.getSelectionModel().clearSelection();
+
+                                    } else {
+                                        throw new IllegalArgumentException();
+                                    }
+                                } catch (IllegalArgumentException ex) {
+                                    Dialogs.errorData("order.error.add", "order.error.add.header");
+                                }
                             }
 
                         }
@@ -204,6 +228,7 @@ public class OrderController {
         this.nameItemsColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         this.categoryColumn.setCellValueFactory(cellData -> cellData.getValue().categoryFxProperty().get().nameProperty());
         this.priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
+        this.stockColumn.setCellValueFactory(cellData -> cellData.getValue().stockProperty());
 
         this.addColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
         this.deleteColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
@@ -221,16 +246,25 @@ public class OrderController {
         //zaznaczenie klienta spowoduje dodanie go do zamówienia
         this.clientTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-            clientLabel.setText(newValue.getName() + " " + newValue.getSecondName());
-            order.setClient(ConverterClient.convertToClient(newValue));
+           try {
+               clientLabel.setText(newValue.getName() + " " + newValue.getSecondName());
+               order.setClient(ConverterClient.convertToClient(newValue));
+           }catch(Exception ex){
+
+           }
+
         });
 
 
-        //zaznaczenie klienta spowoduje dodanie go do zamówienia
+        //zaznaczenie przedmiotu spowoduje dodanie go do zamówienia
         this.itemsTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-            nameItemLabel.setText(newValue.getName());
-            priceItemLabel.setText(newValue.getPrice());
+           try {
+               nameItemLabel.setText(newValue.getName());
+               priceItemLabel.setText(newValue.getPrice());
+           }catch(Exception ex){
+        }
+
 
         });
 
@@ -291,36 +325,45 @@ public class OrderController {
 
 
     public void comitOrder() {
+        //builtItemService.updateStock();
 
         order.setOrderDate(LocalDate.parse(order.getOrderDate().now().toString()));
         OrdersService service = new OrdersService();
         try {
-            if(order.getClient().equals(null) || order.getItem().isEmpty()) throw new Exception();
+            if (order.getClient().equals(null) || order.getItem().isEmpty()) throw new Exception();
             ordersService.persist(order);
             Dialogs.dialogConfAddOrder();
+
             clean();
 
-        }catch (Exception ex)
-        {
-            Dialogs.errorData("order.errorClient","order.errorClient.header");
+        } catch (Exception ex) {
+            Dialogs.errorData("order.errorClient", "order.errorClient.header");
         }
-
-
 
 
     }
 
     public void clean() {
+        priceAllLabel.setText("0 PLN");
+        clientLabel.setText("Nie wybrano");
+
         orderTableView.getItems().clear();
         dataOrder.clear();
         orderRow.clear();
         order.setClient(null);
-        priceAllLabel.setText("0 PLN");
-        clientLabel.setText("Nie wybrano");
+
         quantityTextField.clear();
+
     }
 
     public void cancelOrder() {
-    clean();
+        clean();
+        clientTableView.getSelectionModel().clearSelection();
+        orderTableView.getItems().clear();
+    }
+
+    @FXML
+    public void updateStock() {
+
     }
 }
