@@ -1,7 +1,6 @@
 package controllers;
 
 import ModelFx.*;
-import database.dao.BuiltItemDao;
 import database.models.BuiltItems;
 import database.models.Orders;
 import javafx.beans.property.SimpleObjectProperty;
@@ -9,7 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -19,10 +17,8 @@ import utils.Dialogs;
 import utils.converters.ConverterBuiltItems;
 import utils.converters.ConverterClient;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -58,7 +54,7 @@ public class OrderController {
     private TableColumn<BuiltItemFx, String> allPriceColumn;
     @FXML
     private TableColumn<BuiltItemFx, BuiltItemFx> deleteColumn;
-    private Map<BuiltItems, Integer> dataOrder = new ConcurrentHashMap<>();
+    private Map<BuiltItems, Integer> dataOrderMap = new ConcurrentHashMap<>();
     @FXML
     private TableView<ClientFx> clientTableView;
     @FXML
@@ -120,15 +116,15 @@ public class OrderController {
                             ordersService.setOrderItemList(orderList);
 
                             //usuwanie z mapy
-                            dataOrder.keySet().forEach(
+                            dataOrderMap.keySet().forEach(
                                     lf ->
                                     {
                                         if (lf.getName().equals(item.getName())) {
-                                            dataOrder.remove(lf);
+                                            dataOrderMap.remove(lf);
                                         }
                                     }
                             );
-                            order.setItem(dataOrder);
+                            order.setItem(dataOrderMap);
 
                             orderRow.remove(item.getName());
                             int stockAfterAddItem = Integer.parseInt(item.getStock()) + quantity;
@@ -190,8 +186,8 @@ public class OrderController {
                                         allPriceColumn.setCellValueFactory(cellData -> cellData.getValue().totalPriceProperty());
 
                                         //mapowanie do bazy danych
-                                        dataOrder.putIfAbsent(ConverterBuiltItems.convertToBuiltItems(item), Integer.valueOf(quantity));
-                                        order.setItem(dataOrder);
+                                        dataOrderMap.putIfAbsent(ConverterBuiltItems.convertToBuiltItems(item), Integer.valueOf(quantity));
+                                        order.setItem(dataOrderMap);
 
                                         Double price = Double.valueOf(item.priceProperty().getValue());
                                         priceAllLabel.setText(String.valueOf(Math.round(order.total(price, Integer.parseInt(quantity)) * 100.00) / 100.00).concat(" PLN")); //zliczanie);
@@ -327,6 +323,16 @@ public class OrderController {
     public void comitOrder() {
         //builtItemService.updateStock();
 
+        dataOrderMap.forEach((e,f)->
+        {
+            builtItemService.update(e);
+        });
+
+
+
+
+
+
         order.setOrderDate(LocalDate.parse(order.getOrderDate().now().toString()));
         OrdersService service = new OrdersService();
         try {
@@ -348,7 +354,7 @@ public class OrderController {
         clientLabel.setText("Nie wybrano");
 
         orderTableView.getItems().clear();
-        dataOrder.clear();
+        dataOrderMap.clear();
         orderRow.clear();
         order.setClient(null);
 
