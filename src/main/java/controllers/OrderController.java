@@ -110,7 +110,8 @@ public class OrderController {
                             priceByOneItem.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
                             Double price = Double.valueOf(item.priceProperty().getValue());
                             int quantity = Integer.parseInt(orderItemQuantity.getCellObservableValue(item).getValue());
-                            priceAllLabel.setText(String.valueOf(order.totalAfterRemoving(price, quantity))); //zliczanie);
+                            priceAllLabel.setText(String.valueOf(order.totalAfterRemoving(price, quantity)).concat(" PLN")); //zliczanie);
+
                             ordersService.setOrderItemList(orderList);
 
                             //usuwanie z mapy
@@ -179,7 +180,7 @@ public class OrderController {
 
 
                                 Double price = Double.valueOf(item.priceProperty().getValue());
-                                priceAllLabel.setText(String.valueOf(Math.round(order.total(price, Integer.parseInt(quantity)) * 100.00) / 100.00)); //zliczanie);
+                                priceAllLabel.setText(String.valueOf(Math.round(order.total(price, Integer.parseInt(quantity)) * 100.00) / 100.00).concat(" PLN")); //zliczanie);
                                 quantityTextField.clear();
 
 
@@ -314,7 +315,7 @@ public class OrderController {
         dataOrder.clear();
         orderRow.clear();
         order.setClient(null);
-        priceAllLabel.setText("0");
+        priceAllLabel.setText("0 PLN");
         clientLabel.setText("Nie wybrano");
         quantityTextField.clear();
     }

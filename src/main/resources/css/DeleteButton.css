@@ -10,6 +10,7 @@
     -fx-font-size:15px;
     -fx-font-weight:bold;
     -fx-text-decoration:none;
+    -fx-text-fill: white;
 
 }
 .button:hover {
