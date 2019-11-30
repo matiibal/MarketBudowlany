@@ -362,6 +362,7 @@ public class OrderController {
         clean();
         clientTableView.getSelectionModel().clearSelection();
         orderTableView.getItems().clear();
+        builtItemService.init();
     }
 
     @FXML
