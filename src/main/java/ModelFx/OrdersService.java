@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import utils.BarchartData;
+import utils.HistoryData;
 import utils.PieData;
 
 import java.math.BigDecimal;
@@ -23,6 +24,7 @@ public class OrdersService {
     private OrdersDao orderDao;
     private ObservableList<BuiltItemFx> orderItemList = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> theBestSalaryList = FXCollections.observableArrayList();
+    private ObservableList<HistoryData> historyDataOList = FXCollections.observableArrayList();
     private ObservableList<BarChart.Data<String, BigDecimal>> theBestClientList = FXCollections.observableArrayList();
     private ArrayList<PieChart.Data> dataTheBestSalary;
     private ArrayList<XYChart.Series> dataTheBestClient;
@@ -60,6 +62,11 @@ public class OrdersService {
         return this.findBestClient();
     }
 
+    public List<HistoryData> findHistoryData() {
+        orderDao = new OrdersDao();
+        return this.findHistoryData();
+    }
+
 
     public BarChart<String, BigDecimal> initBarChart(BarChart<String, BigDecimal> barBestClient)
     {
@@ -82,6 +89,14 @@ public class OrdersService {
 //        barBestClient.dataProperty().set(theBestClientList);
 
         return barBestClient;
+    }
+
+
+    public void initHistoryData()
+    {
+        List<HistoryData> historyData = findHistoryData();
+        historyDataOList.addAll(historyData);
+
     }
 
 
@@ -155,5 +170,13 @@ public class OrdersService {
 
     public void setOrderItemList(ObservableList<BuiltItemFx> orderItemList) {
         this.orderItemList = orderItemList;
+    }
+
+    public ObservableList<HistoryData> getHistoryDataOList() {
+        return historyDataOList;
+    }
+
+    public void setHistoryDataOList(ObservableList<HistoryData> historyDataOList) {
+        this.historyDataOList = historyDataOList;
     }
 }

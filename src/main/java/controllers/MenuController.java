@@ -22,6 +22,7 @@ public class MenuController {
     private static final String ADD_CLIENT_FXML = "/fxml/Client.fxml";
     private static final String ORDERS_FXML = "/fxml/Orders.fxml";
     private static final String INFORM_CLIENT_FXML = "/fxml/InformClient.fxml";
+    private static final String HISTORY_FXML = "/fxml/History.fxml";
 
 
     public void Statistics() {
@@ -54,4 +55,9 @@ public class MenuController {
 
     public void informClient() {
     mainController.setLocation(INFORM_CLIENT_FXML);}
+
+
+    public void History() {
+        mainController.setLocation(HISTORY_FXML);
+    }
 }

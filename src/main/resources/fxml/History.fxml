@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HistoryController">
+   <children>
+      <Label layoutX="147.0" layoutY="28.0" prefHeight="75.0" prefWidth="448.0" text="%history">
+         <font>
+            <Font size="52.0" />
+         </font>
+      </Label>
+      <TableView fx:id="historyOrder" layoutX="130.0" layoutY="164.0" prefHeight="375.0" prefWidth="591.0" stylesheets="@../css/TableView.css">
+        <columns>
+          <TableColumn fx:id="dateColumn" prefWidth="117.0" text="%history.date" />
+          <TableColumn fx:id="surnameColumn" prefWidth="122.0" text="%history.surname" />
+            <TableColumn fx:id="nipColumn" prefWidth="109.0" text="%history.nip" />
+            <TableColumn fx:id="totalColumn" prefWidth="161.0" text="%history.total" />
+            <TableColumn fx:id="deleteColumn" prefWidth="81.0" text="%history.action" />
+        </columns>
+      </TableView>
+      <TextField layoutX="133.0" layoutY="120.0" prefHeight="31.0" prefWidth="554.0" />
+   </children>
+</Pane>

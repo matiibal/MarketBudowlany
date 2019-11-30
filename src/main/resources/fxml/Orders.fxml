@@ -75,6 +75,9 @@
                <VBox.margin>
                   <Insets left="20.0" right="400.0" top="25.0" />
                </VBox.margin>
+               <font>
+                  <Font size="21.0" />
+               </font>
             </TextField>
             <TextField fx:id="searchItemField" onAction="#searchItem" prefHeight="57.0" prefWidth="546.0" promptText="%items.search">
                <VBox.margin>

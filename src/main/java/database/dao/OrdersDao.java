@@ -7,6 +7,7 @@ import javafx.beans.property.ListProperty;
 import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
 import utils.BarchartData;
+import utils.HistoryData;
 import utils.PieData;
 
 import java.util.List;
@@ -65,6 +66,16 @@ public class OrdersDao extends DbManager implements CommonDaoInterface<Orders, I
         List<BarchartData> data = query.list();
         return data;
     }
+
+    public List<HistoryData> findHistoryData()
+    {
+        String sql = "select secondName, nip, totalPrice, orderDate from orders join client on orders.client_id=client.id order by orderDate desc";
+        Query query = getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(HistoryData.class));
+        List<HistoryData> data = query.list();
+        return data;
+    }
+
+
 
 
     @Override

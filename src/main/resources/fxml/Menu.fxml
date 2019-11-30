@@ -37,6 +37,11 @@
             </VBox.margin>
         </ToggleButton>
       <ToggleButton mnemonicParsing="false" onAction="#Statistics" prefHeight="80.0" prefWidth="190.0" stylesheets="@../css/ToggleButton.css" text="%built.statistics" toggleGroup="$MenuGroup" />
+      <ToggleButton mnemonicParsing="false" onAction="#History" prefHeight="80.0" prefWidth="190.0" stylesheets="@../css/ToggleButton.css" text="%order.history" toggleGroup="$MenuGroup">
+         <VBox.margin>
+            <Insets right="5.0" top="5.0" />
+         </VBox.margin>
+      </ToggleButton>
     </children>
    <stylesheets>
       <URL value="@../css/ToggleButton.css" />
