@@ -10,6 +10,7 @@ import utils.BarchartData;
 import utils.HistoryData;
 import utils.PieData;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @SuppressWarnings({"JpaQlInspection", "SqlResolve"})
@@ -72,6 +73,10 @@ public class OrdersDao extends DbManager implements CommonDaoInterface<Orders, I
         String sql = "select secondName, nip, totalPrice, orderDate from orders join client on orders.client_id=client.id order by orderDate desc";
         Query query = getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(HistoryData.class));
         List<HistoryData> data = query.list();
+        data.forEach(e->
+        {
+            e.getOrderDate().getTime();
+        });
         return data;
     }
 

@@ -3,20 +3,18 @@ package ModelFx;
 
 import database.dao.OrdersDao;
 import database.models.Orders;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javafx.scene.Node;
 import javafx.scene.chart.*;
 import utils.BarchartData;
 import utils.HistoryData;
+import utils.HistoryDataFx;
 import utils.PieData;
+import utils.converters.ConvertHistoryData;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class OrdersService {
@@ -24,7 +22,7 @@ public class OrdersService {
     private OrdersDao orderDao;
     private ObservableList<BuiltItemFx> orderItemList = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> theBestSalaryList = FXCollections.observableArrayList();
-    private ObservableList<HistoryData> historyDataOList = FXCollections.observableArrayList();
+    private ObservableList<HistoryDataFx> historyDataOList = FXCollections.observableArrayList();
     private ObservableList<BarChart.Data<String, BigDecimal>> theBestClientList = FXCollections.observableArrayList();
     private ArrayList<PieChart.Data> dataTheBestSalary;
     private ArrayList<XYChart.Series> dataTheBestClient;
@@ -62,7 +60,7 @@ public class OrdersService {
         return this.findBestClient();
     }
 
-    public List<HistoryData> findHistoryData() {
+    public List<HistoryData> getHistoryData() {
         orderDao = new OrdersDao();
         return this.findHistoryData();
     }
@@ -84,18 +82,18 @@ public class OrdersService {
 
         barBestClient.getData().addAll(series);
 
-//
-//        theBestClientList.addAll(dataTheBestClient);
-//        barBestClient.dataProperty().set(theBestClientList);
-
         return barBestClient;
     }
 
 
     public void initHistoryData()
     {
-        List<HistoryData> historyData = findHistoryData();
-        historyDataOList.addAll(historyData);
+        List<HistoryData> historyData = getHistoryData();
+
+        historyData.forEach(e->
+        {
+            historyDataOList.add(ConvertHistoryData.convertToHistoryDataFx(e));
+        });
 
     }
 
@@ -153,6 +151,14 @@ public class OrdersService {
         return data;
     }
 
+    public List<HistoryData> findHistoryData(){
+
+        orderDao.openCurrentSession();
+        List<HistoryData> data = orderDao.findHistoryData();
+        orderDao.closeCurrentSession();
+        return data;
+    }
+
     public void deleteAll() {
         orderDao.openCurrentSessionwithTransaction();
         orderDao.deleteAll();
@@ -172,11 +178,11 @@ public class OrdersService {
         this.orderItemList = orderItemList;
     }
 
-    public ObservableList<HistoryData> getHistoryDataOList() {
+    public ObservableList<HistoryDataFx> getHistoryDataOList() {
         return historyDataOList;
     }
 
-    public void setHistoryDataOList(ObservableList<HistoryData> historyDataOList) {
+    public void setHistoryDataOList(ObservableList<HistoryDataFx> historyDataOList) {
         this.historyDataOList = historyDataOList;
     }
 }

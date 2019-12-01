@@ -4,7 +4,10 @@ import controllers.MenuController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.ResourceBundle;
@@ -55,4 +58,7 @@ return null;
         return loader;
 
     }
+
+
+
 }

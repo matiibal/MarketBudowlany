@@ -1,15 +1,49 @@
 package utils;
 
-import java.math.BigDecimal;
+
+import sun.util.calendar.BaseCalendar;
+
+import java.sql.Date;
+import java.time.LocalDate;
+
 
 public class HistoryData {
 
-    private String surnameColumn;
-    private String dateColumn;
-    private String nipColumn;
-    private BigDecimal totalColumn;
+    private String secondName;
+    private Date orderDate;
+    private String nip;
+    private Double totalPrice;
 
 
+    public String getSecondName() {
+        return secondName;
+    }
 
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
 
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }
