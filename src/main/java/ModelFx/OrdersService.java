@@ -127,6 +127,14 @@ public class OrdersService {
         orderDao.closeCurrentSessionwithTransaction();
     }
 
+
+    public void deleteOrder(int id) {
+        orderDao.openCurrentSessionwithTransaction();
+        orderDao.deleteOrder(id);
+        orderDao.closeCurrentSessionwithTransaction();
+
+    }
+
     public List<Orders> findAll() {
 
         orderDao.openCurrentSession();

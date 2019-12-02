@@ -15,6 +15,7 @@ public class ConvertHistoryData {
     {
 
         HistoryData historyData = new HistoryData();
+        historyData.setId(historyDataFx.getId());
        historyData.setSecondName(historyDataFx.getSurnameColumn());
        historyData.setOrderDate(Date.valueOf(historyDataFx.getDateColumn()));
        historyData.setNip(historyDataFx.getNipColumn());
@@ -26,6 +27,7 @@ public class ConvertHistoryData {
     public static HistoryDataFx convertToHistoryDataFx(HistoryData historyData)
     {
         HistoryDataFx historyDataFx = new HistoryDataFx();
+        historyDataFx.setId(historyData.getId());
         historyDataFx.setSurnameColumn(historyData.getSecondName());
         historyDataFx.setDateColumn(String.valueOf(historyData.getOrderDate()));
         historyDataFx.setNipColumn(historyData.getNip());

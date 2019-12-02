@@ -70,9 +70,10 @@ public class HistoryController {
                 setGraphic(button);
                 button.setOnAction(event ->
                 {
-
+                    ordersService.deleteOrder(item.getId());
+                    ordersService.getHistoryDataOList().remove(item);
                 });
-            }
+                }
         });
 
 

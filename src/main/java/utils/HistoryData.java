@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 public class HistoryData {
 
+    private int id;
     private String secondName;
     private Date orderDate;
     private String nip;
@@ -45,5 +46,13 @@ public class HistoryData {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

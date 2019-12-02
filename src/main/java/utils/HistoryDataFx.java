@@ -1,5 +1,7 @@
 package utils;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import lombok.Getter;
@@ -9,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class HistoryDataFx {
 
+    private IntegerProperty id = new SimpleIntegerProperty();
     private StringProperty surnameColumn = new SimpleStringProperty();
     private StringProperty dateColumn = new SimpleStringProperty();
     private StringProperty nipColumn = new SimpleStringProperty();
@@ -61,5 +64,17 @@ public class HistoryDataFx {
 
     public void setTotalColumn(String totalColumn) {
         this.totalColumn.set(totalColumn);
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 }

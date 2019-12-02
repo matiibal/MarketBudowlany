@@ -70,7 +70,7 @@ public class OrdersDao extends DbManager implements CommonDaoInterface<Orders, I
 
     public List<HistoryData> findHistoryData()
     {
-        String sql = "select secondName, nip, totalPrice, orderDate from orders join client on orders.client_id=client.id order by orderDate desc";
+        String sql = "select orders.id, secondName, nip, totalPrice, orderDate from orders join client on orders.client_id=client.id order by orderDate desc";
         Query query = getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(HistoryData.class));
         List<HistoryData> data = query.list();
         data.forEach(e->
@@ -89,5 +89,21 @@ public class OrdersDao extends DbManager implements CommonDaoInterface<Orders, I
         for (Orders entity : entityList) {
             delete(entity);
         }
+    }
+
+
+
+    public void deleteOrder(int id)
+    {
+        Query query1 =getCurrentSession().createSQLQuery( "delete from order_details where order_id=:order_id");
+        query1.setParameter("order_id", id);
+        query1.executeUpdate();
+
+        Query query2 =getCurrentSession().createSQLQuery( "delete from orders where id=:id");
+        query2.setParameter("id", id);
+        query2.executeUpdate();
+
+
+
     }
 }

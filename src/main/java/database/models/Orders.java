@@ -16,12 +16,11 @@ import java.util.*;
 public class Orders {
     @Id
     @GeneratedValue
+
     private int id;
    private LocalDate orderDate;
    @ManyToOne()
    private Client client;
-
-
 
     @ElementCollection
     @CollectionTable(name="order_details",
