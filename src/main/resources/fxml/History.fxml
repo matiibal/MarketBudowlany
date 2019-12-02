@@ -14,18 +14,25 @@
             <Font size="52.0" />
          </font>
       </Label>
-      <TableView fx:id="historyOrder" layoutX="46.0" layoutY="191.0" prefHeight="793.0" prefWidth="592.0" stylesheets="@../css/TableView.css">
+      <TableView fx:id="historyOrder" layoutX="46.0" layoutY="191.0" prefHeight="793.0" prefWidth="704.0" stylesheets="@../css/TableView.css">
         <columns>
           <TableColumn fx:id="orderDateColumn" prefWidth="117.0" text="%history.date" />
           <TableColumn fx:id="secondNameColumn" prefWidth="122.0" text="%history.surname" />
             <TableColumn fx:id="nipColumn" prefWidth="109.0" text="%history.nip" />
             <TableColumn fx:id="totalColumn" prefWidth="153.0" text="%history.total" />
             <TableColumn fx:id="deleteColumn" prefWidth="89.0" text="%history.action" />
+            <TableColumn fx:id="showDetails" prefWidth="124.0" text="Column X" />
         </columns>
       </TableView>
       <TextField fx:id="searchOrder" layoutX="46.0" layoutY="115.0" prefHeight="52.0" prefWidth="585.0">
          <font>
             <Font name="System Bold" size="21.0" />
          </font></TextField>
+      <TableView fx:id="orderDetailsTableView" layoutX="871.0" layoutY="174.0" prefHeight="426.0" prefWidth="388.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="150.0" text="C1" />
+          <TableColumn fx:id="quantityColumn" minWidth="0.0" prefWidth="185.0" text="C2" />
+        </columns>
+      </TableView>
    </children>
 </Pane>

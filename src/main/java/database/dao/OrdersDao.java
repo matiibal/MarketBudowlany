@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
 import utils.BarchartData;
 import utils.HistoryData;
+import utils.OrderDetails;
 import utils.PieData;
 
 import java.time.LocalDate;
@@ -81,6 +82,17 @@ public class OrdersDao extends DbManager implements CommonDaoInterface<Orders, I
     }
 
 
+
+    public List<OrderDetails> getDetails(int id)
+    {
+        String hql = "select qty, name from order_details join builtItems on order_details.item_id=builtItems.id where order_id=:order_id";
+
+        Query query = getCurrentSession().createSQLQuery(hql).setResultTransformer(Transformers.aliasToBean(OrderDetails.class));
+        query.setParameter("order_id", id);
+
+        List<OrderDetails> data = query.list();
+        return data;
+    }
 
 
     @Override

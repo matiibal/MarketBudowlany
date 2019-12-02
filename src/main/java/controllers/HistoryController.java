@@ -11,15 +11,18 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import utils.Dialogs;
-import utils.FxmlUtils;
-import utils.HistoryData;
-import utils.HistoryDataFx;
+import utils.*;
 
 public class HistoryController {
 
     @FXML
     private TableView<HistoryDataFx> historyOrder;
+    @FXML
+    private TableView<OrderDetailsFx> orderDetailsTableView;
+    @FXML
+    private TableColumn<OrderDetailsFx, String> nameColumn;
+    @FXML
+    private TableColumn<OrderDetailsFx, String> quantityColumn;
     @FXML
     private TableColumn<HistoryDataFx, String> secondNameColumn;
     @FXML
@@ -30,6 +33,8 @@ public class HistoryController {
     private TableColumn<HistoryDataFx, String> totalColumn;
     @FXML
     private TableColumn<HistoryDataFx, HistoryDataFx> deleteColumn;
+    @FXML
+    private TableColumn<HistoryDataFx, HistoryDataFx> showDetails;
     private OrdersService ordersService;
     @FXML
     private TextField searchOrder;
@@ -48,12 +53,21 @@ public class HistoryController {
         this.ordersService.initHistoryData();
         this.historyOrder.setItems(ordersService.getHistoryDataOList());
 
-
         this.secondNameColumn.setCellValueFactory(cellData -> cellData.getValue().surnameColumnProperty());
         this.orderDateColumn.setCellValueFactory(cellData -> cellData.getValue().dateColumnProperty());
         this.nipColumn.setCellValueFactory(cellData -> cellData.getValue().nipColumnProperty());
         this.totalColumn.setCellValueFactory(cellData -> cellData.getValue().totalColumnProperty());
         this.deleteColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
+        this.showDetails.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
+
+        this.orderDetailsTableView.setItems(ordersService.getOrderDetailsFxObservableList());
+        this.nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProductProperty());
+        this.quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
+
+        orderDetailsTableView.setItems(ordersService.getOrderDetailsFxObservableList());
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProductProperty());
+        quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
+
 
 
         //ustawienie przycisku usuwania
@@ -72,8 +86,33 @@ public class HistoryController {
                 {
                     ordersService.deleteOrder(item.getId());
                     ordersService.getHistoryDataOList().remove(item);
+                  //  ordersService.initOrderInformation(item.getId());
                 });
                 }
+        });
+
+
+        //ustawienie przycisku usuwania
+        this.showDetails.setCellFactory(param -> new TableCell<HistoryDataFx, HistoryDataFx>() {
+            Button button = createNewButton("/icons/edit.jpg");
+
+            //tworzenie komórki
+            protected void updateItem(HistoryDataFx item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(button);
+                button.setOnAction(event ->
+                {
+                    ordersService.getOrderDetailsFxObservableList().clear();
+                    ordersService.initOrderInformation(item.getId());
+
+
+
+                });
+            }
         });
 
 
