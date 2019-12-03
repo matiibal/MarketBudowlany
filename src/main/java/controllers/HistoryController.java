@@ -12,6 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utils.*;
+import utils.converters.ConvertOrderDetails;
+
+import java.util.*;
+
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class HistoryController {
 
@@ -38,6 +44,7 @@ public class HistoryController {
     private OrdersService ordersService;
     @FXML
     private TextField searchOrder;
+    private OrderDetails orderDetails;
 
     public Button createNewButton(String source) {
         Button buttonAddItemToOrder = new Button();
@@ -84,17 +91,27 @@ public class HistoryController {
                 setGraphic(button);
                 button.setOnAction(event ->
                 {
+                    ordersService.initOrderInformation(item.getId());
+
                     ordersService.deleteOrder(item.getId());
                     ordersService.getHistoryDataOList().remove(item);
-                  //  ordersService.initOrderInformation(item.getId());
+                    orderDetailsTableView.setItems(null);
+
+//                    List<OrderDetailsFx> detailsFxes = ordersService.getOrderDetailsFxObservableList();
+//                    detailsFxes.forEach(e->
+//                    {
+//                        System.out.println("Nazwa produktu" + e.nameProductProperty().getValue());
+//                    });
+
+                    updateStockAfterRemoveOrder();
                 });
                 }
         });
 
 
-        //ustawienie przycisku usuwania
+        //ustawienie przycisku pokazania szczegolow
         this.showDetails.setCellFactory(param -> new TableCell<HistoryDataFx, HistoryDataFx>() {
-            Button button = createNewButton("/icons/edit.jpg");
+            Button button = createNewButton("/icons/showDetails.jpg");
 
             //tworzenie komórki
             protected void updateItem(HistoryDataFx item, boolean empty) {
@@ -108,8 +125,6 @@ public class HistoryController {
                 {
                     ordersService.getOrderDetailsFxObservableList().clear();
                     ordersService.initOrderInformation(item.getId());
-
-
 
                 });
             }
@@ -154,5 +169,36 @@ public class HistoryController {
         sortedData.comparatorProperty().bind(historyOrder.comparatorProperty());
        historyOrder.setItems(sortedData);
     }
+
+
+    public void updateStockAfterRemoveOrder()
+    {
+        List<OrderDetailsFx> detailsFx = new ArrayList<>();
+        List<OrderDetails> details = new ArrayList<>();
+
+        detailsFx.addAll(ordersService.getOrderDetailsFxObservableList());
+        detailsFx.forEach(
+                e->
+                {
+                    details.add(ConvertOrderDetails.convertToOrderDetails(e));
+                }
+        );
+        Map<String, Integer> orderDetailsMap = new ConcurrentHashMap<>();
+        //po detalach dodaj do mapy, która będzie updatować stock w towarach
+        details.forEach(e->
+        {
+            orderDetailsMap.putIfAbsent(e.getNameProduct(), e.getQty());
+        });
+
+        orderDetailsMap.forEach(
+                (name,quantity)->
+                {
+                    System.out.println(name+" "+quantity);
+                    ordersService.updateStockAfterRemoveOrder(quantity,name);
+                }
+        );
+
+    }
+
 }
 

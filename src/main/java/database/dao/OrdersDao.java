@@ -95,6 +95,11 @@ public class OrdersDao extends DbManager implements CommonDaoInterface<Orders, I
     }
 
 
+
+
+
+
+
     @Override
     public void deleteAll() {
         List<Orders> entityList = findAll();
@@ -115,7 +120,15 @@ public class OrdersDao extends DbManager implements CommonDaoInterface<Orders, I
         query2.setParameter("id", id);
         query2.executeUpdate();
 
-
-
     }
+
+
+    public void updateStockAfterRemoveOrder(int stock, String name)
+    {
+        Query query =getCurrentSession().createSQLQuery( "update builtItems set stock=stock+:changeStock where name =:name");
+        query.setParameter("changeStock",stock);
+        query.setParameter("name",name);
+        query.executeUpdate();
+    }
+
 }

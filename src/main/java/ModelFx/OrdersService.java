@@ -3,6 +3,7 @@ package ModelFx;
 
 import database.dao.OrdersDao;
 import database.models.Orders;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -144,6 +145,14 @@ public class OrdersService {
         orderDao.deleteOrder(id);
         orderDao.closeCurrentSessionwithTransaction();
 
+    }
+
+
+    public void updateStockAfterRemoveOrder(int stock, String name)
+    {
+        orderDao.openCurrentSessionwithTransaction();
+        orderDao.updateStockAfterRemoveOrder(stock, name);
+        orderDao.closeCurrentSessionwithTransaction();
     }
 
     public List<Orders> findAll() {
