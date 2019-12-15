@@ -26,7 +26,6 @@ public class StatisticsController {
     }
 
     public void showProcentPieChart(MouseEvent mouseEvent) {
-        System.out.println("Kliknąłeś");
 
     }
 }
