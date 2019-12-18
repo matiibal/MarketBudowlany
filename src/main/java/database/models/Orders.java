@@ -5,9 +5,7 @@ import lombok.Setter;
 import org.apache.commons.math3.util.Precision;
 
 import javax.persistence.*;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.*;
 
 @Getter

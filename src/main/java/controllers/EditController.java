@@ -4,7 +4,6 @@ import ModelFx.BuiltItemService;
 import ModelFx.CategoryFx;
 import database.dao.BuiltItemDao;
 import database.models.BuiltItems;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;

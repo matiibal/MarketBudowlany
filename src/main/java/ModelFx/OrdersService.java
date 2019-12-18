@@ -3,7 +3,6 @@ package ModelFx;
 
 import database.dao.OrdersDao;
 import database.models.Orders;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

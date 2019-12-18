@@ -1,19 +1,15 @@
 package ModelFx;
 
 import database.dao.BuiltItemDao;
-import database.dao.CategoryDao;
 import database.models.BuiltItems;
 import database.models.Category;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import utils.converters.ConverterBuiltItems;
 import utils.converters.ConverterCategory;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 public class BuiltItemService {

@@ -5,12 +5,8 @@ import ModelFx.CategoryService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
-import org.hibernate.exception.ConstraintViolationException;
 import utils.Dialogs;
 import utils.FxmlUtils;
-
-
-import java.lang.reflect.InvocationTargetException;
 
 import static controllers.ClientController.onlyAlphabet;
 

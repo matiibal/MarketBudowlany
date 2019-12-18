@@ -34,7 +34,9 @@ public class Main extends Application {
         Pane pane = FxmlUtils.fxmlLoader(LOADING_FXML);
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
+
         thread.start();
         thread1 = new Thread(()->
         {
@@ -66,6 +68,7 @@ public class Main extends Application {
                 setUserAgentStylesheet(STYLESHEET_CASPIAN);
 
                 primaryStage.setTitle(FxmlUtils.getResourceBundle().getString("title.application"));
+                primaryStage.isMaximized();
 
                 //zamykanie przez x
                 Platform.setImplicitExit(false);

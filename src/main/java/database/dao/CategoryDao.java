@@ -2,7 +2,7 @@ package database.dao;
 
 import database.dbutils.DbManager;
 import database.models.Category;
-import database.models.Client;
+
 
 import java.util.List;
 

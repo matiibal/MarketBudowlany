@@ -2,7 +2,7 @@ package utils.converters;
 
 import ModelFx.BuiltItemFx;
 import database.models.BuiltItems;
-import javafx.beans.property.ObjectProperty;
+
 
 public class ConverterBuiltItems {
 

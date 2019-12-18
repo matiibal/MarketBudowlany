@@ -1,18 +1,12 @@
 package controllers;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import utils.Dialogs;
 import utils.FxmlUtils;
 
-import java.util.Optional;
 
 
 public class MainController {

@@ -2,8 +2,7 @@ package database.dao;
 
 import database.dbutils.DbManager;
 import database.models.Client;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+
 
 import java.util.List;
 

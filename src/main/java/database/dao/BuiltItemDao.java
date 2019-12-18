@@ -2,7 +2,7 @@ package database.dao;
 
 import database.dbutils.DbManager;
 import database.models.BuiltItems;
-import database.models.Category;
+
 
 import javax.persistence.Query;
 import java.util.List;

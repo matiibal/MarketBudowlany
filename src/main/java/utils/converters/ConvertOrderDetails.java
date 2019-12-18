@@ -1,8 +1,6 @@
 package utils.converters;
 
-import ModelFx.ClientFx;
-import database.models.Client;
-import org.hibernate.criterion.Order;
+
 import utils.OrderDetails;
 import utils.OrderDetailsFx;
 

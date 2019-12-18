@@ -3,7 +3,6 @@ package database.dao;
 import database.dbutils.DbManager;
 
 import database.models.Orders;
-import javafx.beans.property.ListProperty;
 import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
 import utils.BarchartData;
@@ -11,7 +10,6 @@ import utils.HistoryData;
 import utils.OrderDetails;
 import utils.PieData;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @SuppressWarnings({"JpaQlInspection", "SqlResolve"})
